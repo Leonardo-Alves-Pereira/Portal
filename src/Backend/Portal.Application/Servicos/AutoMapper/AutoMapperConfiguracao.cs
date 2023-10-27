@@ -15,6 +15,7 @@ public class AutoMapperConfiguracao : Profile
 
     private void RequisicaoParaEntidade()
     {
+        CreateMap<RequisicaoTarefaJson, Tarefa>();
         CreateMap<RequisicaoRegistrarUsuarioJson, Usuario>()
             .ForMember(destino => destino.Senha, config => config.Ignore());
 

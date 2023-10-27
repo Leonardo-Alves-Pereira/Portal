@@ -5,5 +5,5 @@ namespace Portal.Application.UseCases.Tarefa.Atualizar;
 
 public interface IAtualizarTarefaUseCase
 {
-    Task<RespostaTarefaJson> Executar(RequisicaoTarefaJson requisicao);
+    Task<RequisicaoTarefaJson> Executar(RequisicaoTarefaJson requisicao);
 }

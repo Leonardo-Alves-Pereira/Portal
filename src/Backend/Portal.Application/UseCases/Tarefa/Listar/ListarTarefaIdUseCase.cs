@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Portal.Comunicacao.Resposta;
+using Portal.Domain.Entidade;
 using Portal.Domain.Repositorio;
 using Portal.Domain.Repositorio.Tarefa;
 using Portal.Exceptions.ExceptionBase;
@@ -20,7 +22,7 @@ public class ListarTarefaIdUseCase : IListarTarefaIdUseCase
         _repositorio = repositorio;
     }
 
-    public async Task<Domain.Entidade.Tarefa> Executar(int ?id)
+    public async Task<RespostaTarefaJson> Executar(int ?id)
     {
         var validacao = new TarefaValidator();
         var resultado = validacao.Validate(id.GetValueOrDefault());
@@ -31,7 +33,7 @@ public class ListarTarefaIdUseCase : IListarTarefaIdUseCase
         if (!resultado.IsValid)
             throw new ErroTarefaException(mensagensDeErro);
 
-        return existeTarefa;
+        return _mapper.Map<RespostaTarefaJson>(existeTarefa);
     }
 }
 

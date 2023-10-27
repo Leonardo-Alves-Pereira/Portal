@@ -7,5 +7,4 @@ public class RequisicaoTarefaJson
     public string Descrição { get; set; }
     public string DataConclusão { get; set; }
     public int UsuarioId { get; set; }
-    public RequisicaoUsuarioJson Usuario { get; set; }
 }

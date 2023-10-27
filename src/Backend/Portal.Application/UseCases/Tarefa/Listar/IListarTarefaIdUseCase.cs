@@ -1,6 +1,8 @@
-﻿namespace Portal.Application.UseCases.Tarefa.Listar;
+﻿using Portal.Comunicacao.Resposta;
+
+namespace Portal.Application.UseCases.Tarefa.Listar;
 
 public interface IListarTarefaIdUseCase
 {
-    Task<Domain.Entidade.Tarefa> Executar(int ?id);
+    Task<RespostaTarefaJson> Executar(int ?id);
 }

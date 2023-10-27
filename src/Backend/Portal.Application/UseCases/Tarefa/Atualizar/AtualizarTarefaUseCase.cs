@@ -12,24 +12,24 @@ public class AtualizarTarefaUseCase : IAtualizarTarefaUseCase
 {
     private IMapper _mapper;
     private IUnidadeDeTrabalho _unidadeDeTrabalho;
-    private ITarefaWriteOnlyRepositorio _repositorio;
+    private ITarefaUpdateOnlyRepositorio _repositorio;
 
 
-    public AtualizarTarefaUseCase(IMapper mapper, IUnidadeDeTrabalho unidadeDeTrabalho, ITarefaWriteOnlyRepositorio repositorio)
+    public AtualizarTarefaUseCase(IMapper mapper, IUnidadeDeTrabalho unidadeDeTrabalho, ITarefaUpdateOnlyRepositorio repositorio)
     {
         _mapper = mapper;
         _unidadeDeTrabalho = unidadeDeTrabalho;
         _repositorio = repositorio;
     }
-    public async Task<RespostaTarefaJson> Executar(RequisicaoTarefaJson requisicao)
+    public async Task<RequisicaoTarefaJson> Executar(RequisicaoTarefaJson requisicao)
     {
         Validar(requisicao);
 
         var Tarefa = _mapper.Map<Domain.Entidade.Tarefa>(requisicao);
 
-        await _repositorio.Registrar(Tarefa);
+        _repositorio.Update(Tarefa);
         await _unidadeDeTrabalho.Commit();
-        return _mapper.Map<RespostaTarefaJson>(Tarefa);
+        return requisicao;
     }
 
     private void Validar(RequisicaoTarefaJson requisicao)

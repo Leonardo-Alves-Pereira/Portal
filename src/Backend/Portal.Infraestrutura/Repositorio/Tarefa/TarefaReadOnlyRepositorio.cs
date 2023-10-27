@@ -15,7 +15,7 @@ public class TarefaReadOnlyRepositorio : ITarefaReadOnlyRepositorio
 
     public async Task<Domain.Entidade.Tarefa> ListarTarefaId(int? id)
     {
-        return await _contexto.Tarefa.AsNoTracking()
+        return await _contexto.Tarefa.AsNoTracking().Include(u => u.Usuario)
                                         .Where(x => x.Id == id).FirstOrDefaultAsync();
     }
 

@@ -7,6 +7,7 @@ using Portal.Application.UseCases.Login.FazerLogin;
 using Portal.Application.UseCases.Tarefa.Atualizar;
 using Portal.Application.UseCases.Tarefa.Deletar;
 using Portal.Application.UseCases.Tarefa.Listar;
+using Portal.Application.UseCases.Tarefa.Registrar;
 using Portal.Application.UseCases.Usuario.AlterarSenha;
 using Portal.Application.UseCases.Usuario.Registrar;
 
@@ -49,7 +50,7 @@ public static class Bootstrapper
                 .AddScoped<ILoginUseCase, LoginUseCase>()
                 .AddScoped<IAlterarSenhaUseCase, AlterarSenhaUseCase>()
 
-                .AddScoped<IAtualizarTarefaUseCase, AtualizarTarefaUseCase>()
+                .AddScoped<IRegistrarTarefaUseCase, RegistrarTarefaUseCase>()
                 .AddScoped<IListarTarefaUseCase, ListarTarefaUseCase>()
                 .AddScoped<IListarTarefaIdUseCase, ListarTarefaIdUseCase>()
                 .AddScoped<IAtualizarTarefaUseCase, AtualizarTarefaUseCase>()
