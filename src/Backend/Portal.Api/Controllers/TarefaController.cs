@@ -9,7 +9,7 @@ using Portal.Comunicacao.Resposta;
 
 namespace Portal.Api.Controllers;
 
-[Route("tarefa")]
+[Route("api/[controller]")]
 public class TarefaController : PortalController
 {
 

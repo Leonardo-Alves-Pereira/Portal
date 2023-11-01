@@ -8,8 +8,8 @@ public class RegistrarTarefaValidator : AbstractValidator<RequisicaoTarefaJson>
 {
     public RegistrarTarefaValidator()
     {
-        RuleFor(x => x.Título).NotEmpty();
-        RuleFor(x => x.Descrição).NotEmpty();
+        RuleFor(x => x.Titulo).NotEmpty();
+        RuleFor(x => x.Descricao).NotEmpty();
         //RuleForEach(x => x.Tarefas).ChildRules(Tarefa =>
         //{
         //    Tarefa.RuleFor(y => y.Nome).NotEmpty();

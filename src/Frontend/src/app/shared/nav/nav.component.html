@@ -1,23 +1,99 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-  <div class="container">
-    <a class="navbar-brand" routerLink="home">
-      <i class="fa fa-users mb-2"></i>
-    </a>
-    <button class="navbar-toggler" (click)="isCollapsed = !isCollapsed" type="button" data-bs-toggle="collapse"
-      data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" [collapse]="isCollapsed" [isAnimated]="true" id="navbarNav">
-      <ul class="navbar-nav mr-auto">
-        <ng-container>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" aria-current="page" routerLink="dashboard">Dashboard</a>
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container-fluid" *ngIf="!esconderNav()">
+    <div class="d-flex align-items-center">
+      <button
+      (click)="navMenuShow($event)"
+        style="margin-left: 2vw"
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasDarkNavbar"
+        aria-controls="offcanvasDarkNavbar"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon" id="togglerButton"></span>
+      </button>
+      <a
+        class="navbar-brand"
+        style="margin-left: 1vw; font-size: 18px"
+        routerLink="tarefas"
+      >
+        Portal TOTVS
+      </a>
+    </div>
+
+    <ul class="navbar-nav"(click)="navMenuShow($event)" id="togglerUser">
+      <button
+        style="margin-right: 2vw"
+        id="togglerUser"
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasDarkNavbar"
+        aria-controls="offcanvasDarkNavbar"
+        aria-label="Toggle navigation"
+      >
+        <span class="fa fa-user" id="togglerUser"></span>
+        Leonardo
+      </button>
+    </ul>
+
+    <div
+      class="offcanvas offcanvas-start text-bg-dark"
+      id="offcanvasDarkNavbar"
+      tabindex="-1"
+      aria-labelledby="offcanvasDarkNavbarLabel"
+      style="max-height: 100%; max-width: 250px !important;"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel"><i class="fa-brands fa-mendeley"></i><b class="mx-2">Menu</b></h5>
+        <button
+          (click)="navMenuShow($event)"
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+          id="btnClose"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item"  routerLinkActive="active">
+            <a class="nav-link" routerLink="tarefas"><i class="fa-solid fa-calendar-days"></i><b class="mx-2">Tarefas</b></a>
           </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" aria-current="page" routerLink="Produtos/lista">Produtos</a>
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="offcanvas offcanvas-end text-bg-dark"
+      id="offcanvasDarkNavbarEnd"
+      tabindex="-1"
+      aria-labelledby="offcanvasDarkNavbarLabel"
+      style="max-height: 175px; max-width: 250px;">
+      <div class="offcanvas-header">
+        <h6 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
+          Leonardo Alves Pereira
+        </h6>
+        <button
+        (click)="navMenuShow($event)"
+          type="button"
+          id="btnUserClose"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item"  routerLinkActive="active">
+            <a class="nav-link" aria-current="page" routerLink="user/registrar"><i class="fa fa-user-circle"></i><b class="mx-2">Perfil</b></a>
           </li>
-        </ng-container>
-      </ul>
+          <li class="nav-item" routerLinkActive="active" >
+            <a class="nav-link" routerLink="user/login"><i class="fa-solid fa-power-off"></i><b class="mx-2">Sair</b></a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>

@@ -16,6 +16,7 @@ internal class Program
 
         builder.Services.AddRouting(option => option.LowercaseUrls = true);
         builder.Services.AddControllers();
+        builder.Services.AddCors();
         builder.Services.AddHttpContextAccessor();
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -72,6 +73,10 @@ internal class Program
         app.UseAuthorization();
 
         app.MapControllers();
+        app.UseCors(x => x.AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowAnyOrigin()
+        );
 
         AtualizarDatabase();
 

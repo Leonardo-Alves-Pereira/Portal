@@ -14,9 +14,9 @@ public class Version0000002 : Migration
         var tabela = Base.ColunaPadrao(Create.Table("Tarefas"));
 
         tabela
-            .WithColumn("Título").AsString(100).NotNullable()
-            .WithColumn("Descrição").AsString(2000).NotNullable()
-            .WithColumn("DataConclusão").AsString(14).NotNullable()
+            .WithColumn("Titulo").AsString(100).NotNullable()
+            .WithColumn("Descricao").AsString(2000).NotNullable()
+            .WithColumn("DataConclusao").AsString(100).NotNullable()
             .WithColumn("UsuarioId").AsInt64().NotNullable().ForeignKey("FK_Tarefas_Usuario_Id", "Usuarios", "Id");
     }
 

@@ -7,7 +7,7 @@ using Portal.Comunicacao.Resposta;
 namespace Portal.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class LoginController : ControllerBase
 {
     [HttpPost]

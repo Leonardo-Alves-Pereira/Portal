@@ -1,77 +1,81 @@
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { TarefasComponent } from './components/tarefas/tarefas.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NavComponent } from './shared/nav/nav.component';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
-import { NgxCurrencyModule } from 'ngx-currency';
-
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
-import { NgxSpinnerModule } from 'ngx-spinner';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { ProdutosComponent } from './components/produtos/produtos.component';
-import { NavComponent } from './shared/nav/nav.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TarefaService } from './service/tarefa.service';
+import { FormatoDataPipe } from './helpers/FormatoData.pipe';
+import { NgxSpinnerModule } from "ngx-spinner";
 import { TituloComponent } from './shared/titulo/titulo.component';
-
-import { Produtoservice } from './services/produto.service';
-
-import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
-import { ProdutoDetalheComponent } from './components/produtos/produto-detalhe/produto-detalhe.component';
-import { ProdutoListaComponent } from './components/produtos/produto-lista/produto-lista.component';
-import { HomeComponent } from './components/home/home.component';
+import { TarefaDetalheComponent } from './components/tarefas/tarefa-detalhe/tarefa-detalhe.component';
+import { TarefaListaComponent } from './components/tarefas/tarefa-lista/tarefa-lista.component';
+import { UserComponent } from './components/user/user.component';
+import { RegistrationComponent } from './components/user/registration/registration.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
+import { FooterComponent } from './shared/footer/footer.component';
+import { LoginComponent } from './components/user/login/login.component';
+import { LoginService } from './service/login.service';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 defineLocale('pt-br', ptBrLocale);
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProdutosComponent,
+    TarefasComponent,
+    TarefaDetalheComponent,
+    TarefaListaComponent,
     NavComponent,
+    FooterComponent,
     TituloComponent,
-    DateTimeFormatPipe,
-    ProdutoDetalheComponent,
-    ProdutoListaComponent,
-    HomeComponent,
+    FormatoDataPipe,
+    UserComponent,
+    UserComponent,
+    LoginComponent,
+    RegistrationComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     CollapseModule.forRoot(),
     TooltipModule.forRoot(),
     BsDropdownModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    PaginationModule.forRoot(),
-    TabsModule.forRoot(),
     ModalModule.forRoot(),
     ToastrModule.forRoot({
-      timeOut: 4000,
+      timeOut: 5000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
       progressBar: true,
     }),
     NgxSpinnerModule,
-    NgxCurrencyModule,
+    FormsModule
   ],
   providers: [
-      ,
-    Produtoservice,
+    TarefaService,
+    LoginService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor , multi: true}
   ],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule {}
+export class AppModule { }

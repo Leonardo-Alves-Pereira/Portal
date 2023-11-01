@@ -1,0 +1,107 @@
+<form class="row g-3 text-start" [formGroup]="form">
+  <h4><i class="fa fa-edit mx-2"></i>Editar Tarefas</h4>
+  <hr />
+
+  <div class="col-md-12 mt-1">
+    <div class="did-floating-label-content">
+      <input
+        formControlName="titulo"
+        autocomplete="off"
+        type="text"
+        class="did-floating-input bg-dark form-control"
+        [ngClass]="cssValidator(f.titulo)"
+      />
+      <label class="did-floating-label bg-dark">Título</label>
+      <div class="invalid-feedback">
+        <b>Campo obrigatorio</b>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-2 mt-1">
+    <div class="did-floating-label-content">
+      <input
+        type="text"
+        class="did-floating-input bg-dark form-control"
+        formControlName="dataCriacao"
+        [ngClass]="cssValidator(f.dataCriacao)"
+        bsDatepicker
+        [bsConfig]= "bsConfig"
+        onkeydown="return false"
+        onclick="return false"
+        value="{{ form.value.dataCriacao | FormatoData}}"
+
+
+      />
+      <label class="did-floating-label bg-dark">Data de Criação</label>
+      <div class="invalid-feedback">
+        <b>Campo obrigatorio</b>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-2 mt-1">
+    <div class="did-floating-label-content">
+      <input
+        class="did-floating-input bg-dark coloPicker form-control"
+        style="color: white;"
+        type="text"
+        formControlName="dataConclusao"
+        [ngClass]="cssValidator(f.dataConclusao)"
+        bsDatepicker
+        [bsConfig]= "bsConfig"
+        onkeydown="return false"
+        onclick="return false"
+        value="{{ form.value.dataConclusao | FormatoData}}"
+      />
+      <label class="did-floating-label bg-dark">Data de Conclusão</label>
+      <div class="invalid-feedback">
+        <b>Campo obrigatorio</b>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 mt-1">
+    <div class="did-floating-label-content" formGroupName="usuario">
+      <input
+        formControlName="nome"
+        autocomplete="off"
+        type="text"
+        class="did-floating-input bg-dark form-control"
+        value= "Leonardo Alves Pereira"
+        readonly
+      />
+      <label class="did-floating-label bg-dark">Usuário Responsável</label>
+      <div class="invalid-feedback">
+        <b>Campo obrigatorio</b>
+      </div>
+    </div>
+  </div>
+<hr>
+  <div class="col-md-4 mt-1">
+    <div class="did-floating-label-content">
+      <textarea
+        class="did-floating-input bg-dark form-control"
+        formControlName="descricao"
+        id="descricao"
+        rows="5"
+        [ngClass]="cssValidator(f.descricao)"
+      ></textarea>
+      <label class="did-floating-label bg-dark">Descrição</label>
+      <div class="invalid-feedback">
+        <b>Campo obrigatorio</b>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 d-flex justify-content-end mt-1">
+    <button class="btn btn-success mx-2"
+    [disabled]="!this.form.valid"
+    (click)="validarTarefa()">
+      <span *ngIf="!this.form.valid" class="spinner-border spinner-border-sm mr-1"></span>
+      Salvar Evento
+    </button>
+    <button class="btn btn-outline-secondary border"
+    routerLink="tarefas">Cancelar Alteração</button>
+  </div>
+</form>

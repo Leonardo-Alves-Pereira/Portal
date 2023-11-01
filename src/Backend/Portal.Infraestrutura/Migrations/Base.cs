@@ -8,7 +8,7 @@ public static class Base
     {
         return tabela
             .WithColumn("Id").AsInt64().PrimaryKey().Identity()
-            .WithColumn("DataCriacao").AsDateTime().NotNullable();
+            .WithColumn("DataCriacao").AsString(100).NotNullable();
 
     }
 }

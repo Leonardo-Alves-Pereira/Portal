@@ -1,5 +1,98 @@
 /* You can add global styles to this file, and also import other style files */
-@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-@import '../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css';
-@import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
-@import '../node_modules/bootswatch/dist/cosmo/bootstrap.min.css';
+
+/* Importing Bootstrap SCSS file. */
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+@import "../node_modules/ngx-toastr/toastr.css";
+@import "../node_modules/bootswatch/dist/cosmo/bootstrap.min.css";
+
+/* Importing Datepicker SCSS file. */
+@import "../node_modules/ngx-bootstrap/datepicker/bs-datepicker";
+
+@media (max-height: 720px) {
+    .card {
+        height: 68%;
+        overflow: auto;
+    }
+}
+
+@media (min-height: 721px) {
+    .card {
+        height: 87%;
+        overflow: auto;
+    }
+}
+
+.bs-datepicker-body table td.week span {
+    color: white !important;
+    background-color: red !important;
+}
+
+.bs-datepicker-body td.ng-star-inserted span {
+    color: white;
+    transition: 0s;
+}
+
+td.ng-star-inserted :hover {
+    color: black !important;
+}
+
+button.ng-star-inserted, button.current{
+    font-weight: bold !important;
+}
+
+
+.bs-datepicker-body table td span.selected,
+.bs-datepicker-head,
+.bs-datepicker-head,
+.bs-datepicker button:active,
+.bs-datepicker-body table td.selected span,
+.bs-datepicker-body table td span[class*="select-"]:after,
+.bs-datepicker-body table td[class*="select-"] span:after,
+.bs-datepicker-body table td.active-week span:hover {
+    background-color: red !important;
+}
+
+body {
+    overflow: hidden;
+    height: 100vh;
+    background-color: black;
+    color: white;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.active {
+    font-weight: 550 !important;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #fff !important;
+}

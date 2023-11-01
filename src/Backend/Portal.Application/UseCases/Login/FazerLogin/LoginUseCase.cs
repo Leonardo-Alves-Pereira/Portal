@@ -29,6 +29,7 @@ public class LoginUseCase : ILoginUseCase
 
         return new RespostaLoginJson
         {
+            id = usuario.Id,
             Nome = usuario.Nome,
             Token = _tokenController.GerarToken(usuario.Email),
         };

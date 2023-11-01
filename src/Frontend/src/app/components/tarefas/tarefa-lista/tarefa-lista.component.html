@@ -1,0 +1,93 @@
+
+  <div class="d-flex bg-dark border-none">
+    <div class="flex-fill bg-dark" style="padding-right: 500px">
+      <div class="input-group mb-2 bg-dark">
+        <div class="input-group-prepend bg-dark">
+          <div
+            class="input-group-text bg-dark"
+            style="color: white; border-style: none"
+          >
+            Filtro:
+          </div>
+        </div>
+        <input
+          style="background: gray; border-style: none; color: white !important"
+          class="form-control mr-2"
+          placeholder="Buscar"
+          [(ngModel)]="filtroLista"
+        />
+      </div>
+    </div>
+    <div class="my-1">
+      <a tooltip="Adicionar"
+      (click)="detlheTarefa(0)"
+      class="btn btn-success"><i class="fa fa-plus"></i></a>
+    </div>
+  </div>
+
+  <table class="table table-dark table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th>#</th>
+        <th>Titulo</th>
+        <th>Descrição</th>
+        <th>Data de Criação</th>
+        <th>Data de Conclusão</th>
+        <th>Usuario</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="tarefas && tarefas.length">
+      <tr *ngFor="let tarefa of tarefasFiltradas">
+        <td>{{ tarefa.id }}</td>
+        <td>{{ tarefa.titulo }}</td>
+        <td>{{ tarefa.descricao }}</td>
+        <td>{{ tarefa.dataCriacao | FormatoData }}</td>
+        <td>{{ tarefa.dataCriacao | FormatoData }}</td>
+        <td>{{ tarefa.usuario.nome }}</td>
+        <td class="gap-2 d-md-flex">
+          <button type="button"
+                  class="btn btn-primary btn-sm"
+                  (click)="detlheTarefa(tarefa.id)">
+            <i class="fa fa-edit" tooltip="Editar"></i>
+          </button>
+          <button
+            (click)="openModal(template, tarefa.id)"
+            type="button"
+            class="btn btn-danger btn-sm mr-2"
+          >
+            <i class="fa fa-trash" tooltip="Excluir"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot *ngIf="!tarefas.length">
+      <tr>
+        <td colspan="8" class="text-center">
+          <h4>Nenhuma tarefa encontrada!</h4>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+
+<pre class="card card-block card-header">{{ message }}</pre>
+<ng-template #template>
+  <div
+    class="modal-body border border-1 border-opacity-25 border-light text-center bg-dark rounded-2"
+  >
+    <div class="justify-content-center">
+      <p>Deseja deletar a tarefa numero: {{this.id}}?</p>
+      <button
+        type="button"
+        style="margin-right: 5px"
+        class="btn btn-danger mr-2"
+        (click)="confirm()"
+      >
+        Sim
+      </button>
+      <button type="button" class="btn btn-primary" (click)="decline()">
+        Não
+      </button>
+    </div>
+  </div>
+</ng-template>
