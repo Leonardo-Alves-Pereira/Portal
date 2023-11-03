@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Tarefa } from 'src/app/model/Tarefa';
+import { LoginService } from 'src/app/service/login.service';
 import { TarefaService } from 'src/app/service/tarefa.service';
 @Component({
   selector: 'app-tarefa-detalhe',
@@ -12,8 +13,8 @@ import { TarefaService } from 'src/app/service/tarefa.service';
 })
 export class TarefaDetalheComponent implements OnInit {
 
-  userId = 0;
-  // this.router.navigate([`/tarefas/detalhe/${id}`]);
+  user = this.loginService.currentUser();
+  id = this.user?.id;
   tarefa!: Tarefa;
   form!: FormGroup;
 
@@ -44,7 +45,8 @@ export class TarefaDetalheComponent implements OnInit {
     private tarefaService: TarefaService,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
-    private rota: Router
+    private rota: Router,
+    public loginService: LoginService
   ) { }
 
   ngOnInit() {
@@ -108,13 +110,9 @@ export class TarefaDetalheComponent implements OnInit {
         (tarefa: Tarefa) => {
           this.tarefa = { ...tarefa }
           this.form.patchValue(this.tarefa);
-    console.log(this.tarefa)
 
         },
         (error: any) => {
-          this.toastr.error('Erro na conexão!', 'Erro', {
-            timeOut: 10000
-          });
           this.showSpinner();
           this.rota.navigate([`/tarefas`]);
         },

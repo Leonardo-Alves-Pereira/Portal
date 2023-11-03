@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Portal.Application.Servicos.UsuarioLogado;
 using Portal.Comunicacao.Requisicao;
 using Portal.Comunicacao.Resposta;
 using Portal.Domain.Repositorio;
@@ -15,37 +14,43 @@ public class DeletarlTarefaUseCase : IDeletarTarefaUseCase
     private ITarefaDeleteOnlyRepositorio _repositorio;
 
 
-    public DeletarlTarefaUseCase(IMapper mapper, 
-                               IUnidadeDeTrabalho unidadeDeTrabalho, 
+    public DeletarlTarefaUseCase(IMapper mapper,
+                               IUnidadeDeTrabalho unidadeDeTrabalho,
                                ITarefaDeleteOnlyRepositorio repositorio)
     {
         _mapper = mapper;
         _unidadeDeTrabalho = unidadeDeTrabalho;
         _repositorio = repositorio;
     }
-    public async Task<RespostaTarefaJson> Executar(GenericRequestIdJson id)
+    public async Task<RespostaTarefaJson> Executar(RequisicaoTarefaJson id)
     {
-        var validacao = new TarefaValidator();
-        var resultado = validacao.Validate(id.Id);
         var tarefaRecuperado = await _repositorio.RecuperarPorId(id.Id);
-        var Tarefa = _mapper.Map<Domain.Entidade.Tarefa>(tarefaRecuperado);
+        var Tarefa = _mapper.Map<RequisicaoTarefaJson>(tarefaRecuperado);
 
-        var mensagensDeErro = resultado.Errors.Select(error => error.ErrorMessage).ToList();
-        if (!resultado.IsValid)
-            throw new ErroTarefaException(mensagensDeErro);
+        Validar(Tarefa);
 
-        _repositorio.Deletar(Tarefa);
+        _repositorio.Deletar(tarefaRecuperado);
         await _unidadeDeTrabalho.Commit();
-        return _mapper.Map<RespostaTarefaJson>(Tarefa);
+        return _mapper.Map<RespostaTarefaJson>(tarefaRecuperado);
     }
 
     private void Validar(RequisicaoTarefaJson requisicao)
     {
+        if (requisicao == null)
+            requisicao = new RequisicaoTarefaJson();
+    
         var validator = new DeletarTarefaValidator();
         var resultado = validator.Validate(requisicao);
+        var mensagensDeErro = resultado.Errors.Select(error =>
+        {
+            return new ErroValidacaoJson
+            {
+                ErroNome = error.PropertyName,
+                Mensagem = error.ErrorMessage
+            };
+        }).ToList();
 
-        var mensagesDeErro = resultado.Errors.Select(e => e.ErrorMessage).ToList();
         if (!resultado.IsValid)
-            throw new ErroDeValidacaoException(mensagesDeErro);
+            throw new ErroGenericoException(mensagensDeErro);
     }
 }

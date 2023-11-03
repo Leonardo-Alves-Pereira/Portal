@@ -27,16 +27,15 @@ export class LoginComponent {
   login() {
     this.loginService.login(this.model).subscribe({
       next: () => {
-        this.router.navigateByUrl('/tarefas');
-        console.log('Login efetuado com sucesso!');
+        this.router.navigateByUrl('/user');
       },
       error: (error) => { 
         if (error.status == 401) {
-          this.toastr.error('Usuário ou senha inválidos!', 'Erro', {
+          this.toastr.error(error.error.mensagens, 'Erro', {
             timeOut: 10000
           });
         }
-        console.log(error); },
+         },
       complete: () => { }
     });
   }

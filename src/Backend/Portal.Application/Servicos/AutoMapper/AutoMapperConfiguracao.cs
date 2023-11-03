@@ -9,21 +9,27 @@ public class AutoMapperConfiguracao : Profile
 {
     public AutoMapperConfiguracao()
     {
-        RequisicaoParaEntidade();
-        EntidadeParaResposta();
+        JsonParaEntidade();
+        EntidadeParaJson();
     }
 
-    private void RequisicaoParaEntidade()
+    private void JsonParaEntidade()
     {
+        CreateMap<RespostaTarefaJson, Tarefa>();
         CreateMap<RequisicaoTarefaJson, Tarefa>();
+        CreateMap<RequisicaoUsuarioJson, Usuario>();
+        CreateMap<RespostaUsuarioJson, Usuario>();
         CreateMap<RequisicaoRegistrarUsuarioJson, Usuario>()
             .ForMember(destino => destino.Senha, config => config.Ignore());
 
     }
 
-    private void EntidadeParaResposta()
+    private void EntidadeParaJson()
     {
         CreateMap<Usuario, RespostaUsuarioJson>();
+        CreateMap<Usuario, RequisicaoUsuarioJson>();
         CreateMap<Tarefa, RespostaTarefaJson>();
+        CreateMap<Tarefa, RequisicaoTarefaJson>();
+
     }
 }

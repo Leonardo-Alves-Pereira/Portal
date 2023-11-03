@@ -6,22 +6,24 @@ import { TarefaDetalheComponent } from './components/tarefas/tarefa-detalhe/tare
 import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
+import { AuthGuard } from './guards/auth.guard';
+import { NoAuthGuard } from './guards/noAuth.guard';
 
 const routes: Routes = [
   { path: 'tarefas', redirectTo: 'tarefas/lista' },
   {
     path: 'tarefas', component: TarefasComponent,
     children: [
-      { path: 'detalhe/:id', component: TarefaDetalheComponent },
-      { path: 'novo', component: TarefaDetalheComponent },
-      { path: 'lista', component: TarefaListaComponent }
+      { path: 'detalhe/:id', component: TarefaDetalheComponent, canActivate: [AuthGuard] },
+      { path: 'lista', component: TarefaListaComponent, canActivate: [AuthGuard] }
     ]
   },
+  { path: 'user', redirectTo: 'tarefas/lista' },
   {
     path: 'user', component: UserComponent,
     children: [
-      { path: 'login', component: LoginComponent },
-      { path: 'registrar', component: RegistrationComponent }
+      { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
+      { path: 'registrar', component: RegistrationComponent,canActivate: [NoAuthGuard] }
     ]
   },
   { path: '', redirectTo: 'tarefas/lista', pathMatch: 'full' },

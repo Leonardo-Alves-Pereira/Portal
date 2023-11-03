@@ -22,7 +22,7 @@
       </a>
     </div>
 
-    <ul class="navbar-nav"(click)="navMenuShow($event)" id="togglerUser">
+    <ul class="navbar-nav"(click)="navMenuShow($event)" id="togglerUser" *ngIf="user.nome">
       <button
         style="margin-right: 2vw"
         id="togglerUser"
@@ -34,7 +34,7 @@
         aria-label="Toggle navigation"
       >
         <span class="fa fa-user" id="togglerUser"></span>
-        Leonardo
+        {{user.nome.split(' ')[0]}}
       </button>
     </ul>
 
@@ -66,6 +66,7 @@
     </div>
 
     <div
+      *ngIf="user.nome"
       class="offcanvas offcanvas-end text-bg-dark"
       id="offcanvasDarkNavbarEnd"
       tabindex="-1"
@@ -73,7 +74,7 @@
       style="max-height: 175px; max-width: 250px;">
       <div class="offcanvas-header">
         <h6 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
-          Leonardo Alves Pereira
+          {{user.nome}}
         </h6>
         <button
         (click)="navMenuShow($event)"
@@ -90,7 +91,7 @@
             <a class="nav-link" aria-current="page" routerLink="user/registrar"><i class="fa fa-user-circle"></i><b class="mx-2">Perfil</b></a>
           </li>
           <li class="nav-item" routerLinkActive="active" >
-            <a class="nav-link" routerLink="user/login"><i class="fa-solid fa-power-off"></i><b class="mx-2">Sair</b></a>
+            <a class="nav-link" (click)="logout()" style="cursor: pointer;"><i class="fa-solid fa-power-off"></i><b class="mx-2">Sair</b></a>
           </li>
         </ul>
       </div>

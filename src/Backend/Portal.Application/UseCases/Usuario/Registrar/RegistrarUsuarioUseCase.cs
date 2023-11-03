@@ -59,8 +59,16 @@ public class RegistrarUsuarioUseCase : IRegistrarUsuarioUseCase
             resultado.Errors.Add(new FluentValidation.Results.ValidationFailure("email", ResourceErrorMessage.EMAIL_EXISTE));
 
 
-        var mensagensDeErro = resultado.Errors.Select(error => error.ErrorMessage).ToList();
+        var mensagensDeErro = resultado.Errors.Select(error =>
+        {
+            return new ErroValidacaoJson
+            {
+                ErroNome = error.PropertyName,
+                Mensagem = error.ErrorMessage
+            };
+        }).ToList();
+
         if (!resultado.IsValid)
-            throw new ErroDeValidacaoException(mensagensDeErro);
+            throw new ErroGenericoException(mensagensDeErro);
     }
 }

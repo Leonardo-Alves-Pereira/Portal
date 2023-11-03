@@ -41,7 +41,7 @@
       <tr *ngFor="let tarefa of tarefasFiltradas">
         <td>{{ tarefa.id }}</td>
         <td>{{ tarefa.titulo }}</td>
-        <td>{{ tarefa.descricao }}</td>
+        <td>{{ tarefa.descricao | slice:0:30 }}...</td>
         <td>{{ tarefa.dataCriacao | FormatoData }}</td>
         <td>{{ tarefa.dataCriacao | FormatoData }}</td>
         <td>{{ tarefa.usuario.nome }}</td>

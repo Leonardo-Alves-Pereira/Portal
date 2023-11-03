@@ -37,7 +37,6 @@ export class TarefaListaComponent implements OnInit {
 
   public ngOnInit(): void {
     this.listarTarefas();
-
   }
 
   public listarTarefas(): void {
@@ -48,7 +47,7 @@ export class TarefaListaComponent implements OnInit {
         this.spinner.show();
       },
       error: (error: any) => {
-        this.toastr.error('Erro na conexão!', 'Erro', {
+        this.toastr.error(error.error.mensagens, 'Erro', {
           timeOut: 10000
         });
         this.showSpinner();

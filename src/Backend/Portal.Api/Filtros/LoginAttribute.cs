@@ -35,7 +35,7 @@ public class LoginAttribute : AuthorizeAttribute, IAsyncAuthorizationFilter
     {
         var authorization = context.HttpContext.Request.Headers["Authorization"].ToString();
 
-        if (string.IsNullOrEmpty(authorization))
+        if (authorization.Length <= 25)
             authorization = "Bearer";
 
         return authorization["Bearer".Length..].Trim();

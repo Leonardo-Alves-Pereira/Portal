@@ -62,13 +62,13 @@
   </div>
 
   <div class="col-md-4 mt-1">
-    <div class="did-floating-label-content" formGroupName="usuario">
+    <div class="did-floating-label-content" formGroupName="usuario" *ngIf="loginService.currentUser()  as dados">
       <input
+      ngModel="{{dados.nome}}"
         formControlName="nome"
         autocomplete="off"
         type="text"
         class="did-floating-input bg-dark form-control"
-        value= "Leonardo Alves Pereira"
         readonly
       />
       <label class="did-floating-label bg-dark">Usuário Responsável</label>

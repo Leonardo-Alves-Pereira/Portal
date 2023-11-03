@@ -1,4 +1,6 @@
-﻿namespace Portal.Domain.Repositorio.Usuario;
+﻿using System.Threading.Tasks;
+
+namespace Portal.Domain.Repositorio.Usuario;
 
 public interface IUsuarioReadOnlyRepositorio
 {

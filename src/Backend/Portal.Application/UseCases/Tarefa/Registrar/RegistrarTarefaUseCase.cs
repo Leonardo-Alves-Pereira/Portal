@@ -37,8 +37,16 @@ public class RegistrarTarefaUseCase : IRegistrarTarefaUseCase
         var validator = new RegistrarTarefaValidator();
         var resultado = validator.Validate(requisicao);
 
-        var mensagesDeErro = resultado.Errors.Select(e => e.ErrorMessage).ToList();
+        var mensagensDeErro = resultado.Errors.Select(error =>
+        {
+            return new ErroValidacaoJson
+            {
+                ErroNome = error.PropertyName,
+                Mensagem = error.ErrorMessage
+            };
+        }).ToList();
+
         if (!resultado.IsValid)
-            throw new ErroDeValidacaoException(mensagesDeErro);
+            throw new ErroGenericoException(mensagensDeErro);
     }
 }

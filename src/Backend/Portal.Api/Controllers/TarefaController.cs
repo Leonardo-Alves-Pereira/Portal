@@ -64,7 +64,7 @@ public class TarefaController : PortalController
     [Route("deletar")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> Deletar([FromServices] IDeletarTarefaUseCase useCase,
-                               [FromBody] GenericRequestIdJson id)
+                               [FromBody] RequisicaoTarefaJson id)
     {
         if (id is null)
             throw new Exception();

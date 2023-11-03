@@ -1,5 +1,9 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { Usuario } from 'src/app/model/Usuario';
+import { LoginService } from 'src/app/service/login.service';
 
 @Component({
   selector: 'app-nav',
@@ -7,16 +11,37 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
+    
+  user!: Usuario;
 
-  
-  constructor(private renderer: Renderer2, private el: ElementRef, private router: Router) { }
+  constructor(private renderer: Renderer2,
+      private el: ElementRef, 
+      private router: Router,
+      public loginSevice: LoginService,
+      private toastr: ToastrService,
+      private spinner: NgxSpinnerService) {       }
+
 
   ngOnInit() {
     this.expandirMenu();
     this.esconderMenu();
     this.userMenu();
     this.esconderUserMenu();
+
+
+    this.loginSevice.currentUser$.subscribe((user: Usuario) => {
+      this.user = user;
+    });
   }
+
+
+
+    public logout() { 
+      this.toastr.success('Logout efetuado com sucesso!', 'Logout');
+      this.loginSevice.logout();
+      this.router.navigateByUrl('/user/login');
+    }
+
 
 
   public userMenu() {

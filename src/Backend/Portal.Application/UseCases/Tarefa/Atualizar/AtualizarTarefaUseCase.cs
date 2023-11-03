@@ -37,8 +37,19 @@ public class AtualizarTarefaUseCase : IAtualizarTarefaUseCase
         var validator = new RegistrarTarefaValidator();
         var resultado = validator.Validate(requisicao);
 
-        var mensagesDeErro = resultado.Errors.Select(e => e.ErrorMessage).ToList();
+        var mensagesDeErro = resultado.Errors.Select(e =>
+        {
+            var erroNome = e.PropertyName;
+            var mensagem = e.ErrorMessage;
+            return new ErroValidacaoJson
+            {
+                ErroNome = erroNome,
+                Mensagem = mensagem
+            };
+              
+        }).ToList();
+
         if (!resultado.IsValid)
-            throw new ErroDeValidacaoException(mensagesDeErro);
+            throw new ErroGenericoException(mensagesDeErro);
     }
 }

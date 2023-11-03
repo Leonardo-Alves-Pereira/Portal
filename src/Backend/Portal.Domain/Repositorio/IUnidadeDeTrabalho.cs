@@ -1,4 +1,6 @@
-﻿namespace Portal.Domain.Repositorio;
+﻿using System.Threading.Tasks;
+
+namespace Portal.Domain.Repositorio;
 
 public interface IUnidadeDeTrabalho
 {

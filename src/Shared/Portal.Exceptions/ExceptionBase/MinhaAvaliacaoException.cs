@@ -1,4 +1,5 @@
 ﻿using Portal.Exceptions.Resources;
+using System;
 using System.Runtime.Serialization;
 
 namespace Portal.Exceptions.ExceptionBase;

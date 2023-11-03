@@ -3,9 +3,10 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpResponse
 } from '@angular/common/http';
-import { Observable, take } from 'rxjs';
+import { Observable, take, tap } from 'rxjs';
 import { Usuario } from '../model/Usuario';
 import { LoginService } from '../service/login.service';
 
@@ -16,22 +17,8 @@ export class JwtInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let currentUser!: Usuario;
-
-
-    this.loginService.currentUser$.pipe(take(1)).subscribe(user => {
-      currentUser = user
-      if (currentUser) {
-        request = request.clone({
-          setHeaders: {
-            Authorization: `Bearer ${currentUser.token}`
-          }
-        });
-      }
-    });
-
     if (currentUser === undefined) {
       currentUser = JSON.parse(localStorage.getItem('usuario') || '{}');
-      console.log(currentUser);
 
       request = request.clone({
         setHeaders: {
@@ -39,10 +26,9 @@ export class JwtInterceptor implements HttpInterceptor {
         }
       });
     }
-
-
-
-
     return next.handle(request);
   }
 }
+
+
+

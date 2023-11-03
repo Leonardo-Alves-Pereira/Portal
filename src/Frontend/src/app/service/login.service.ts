@@ -26,6 +26,14 @@ currentUser$ = this.currentUserSource.asObservable();
     );
   }
 
+  isLogado(): boolean {
+    const usuario = localStorage.getItem('usuario');
+    if (usuario === null || usuario === undefined) {
+      return false;
+    }
+    return true;
+  }
+
   logout() {  
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
@@ -33,8 +41,19 @@ currentUser$ = this.currentUserSource.asObservable();
     this.currentUserSource.complete();
   }
 
-  public setUsuario(usuario: Usuario): void {
-    localStorage.setItem('usuario', JSON.stringify(usuario));
-    this.currentUserSource.next(usuario);
+  public setUsuario(usuario: Usuario | null): void {
+    if (usuario) 
+      localStorage.setItem('usuario', JSON.stringify(usuario));
+
+    this.currentUserSource.next(usuario!);
+    this.currentUserSource.complete();
+  }
+
+  currentUser(): Usuario | null {
+    const usuario = localStorage.getItem('usuario');
+    if (usuario) {
+      return JSON.parse(usuario);
+    }
+    return null;
   }
 }

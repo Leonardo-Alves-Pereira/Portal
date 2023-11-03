@@ -31,6 +31,8 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { LoginService } from './service/login.service';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { LoginInterceptor } from './interceptors/login.interceptor';
+import { ApiInterceptor } from './interceptors/api.interceptor';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -73,7 +75,9 @@ defineLocale('pt-br', ptBrLocale);
   providers: [
     TarefaService,
     LoginService,
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor , multi: true}
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor , multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor , multi: true}
+
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

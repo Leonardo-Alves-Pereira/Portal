@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Portal.Comunicacao.Resposta;
-using Portal.Domain.Entidade;
 using Portal.Domain.Repositorio;
 using Portal.Domain.Repositorio.Tarefa;
 using Portal.Exceptions.ExceptionBase;
@@ -22,16 +21,31 @@ public class ListarTarefaIdUseCase : IListarTarefaIdUseCase
         _repositorio = repositorio;
     }
 
-    public async Task<RespostaTarefaJson> Executar(int ?id)
+    public async Task<RespostaTarefaJson> Executar(int? id)
+    {
+        return await Validar(id);
+    }
+
+    public async Task<RespostaTarefaJson> Validar(int? id)
     {
         var validacao = new TarefaValidator();
         var resultado = validacao.Validate(id.GetValueOrDefault());
-
         var existeTarefa = await _repositorio.ListarTarefaId(id);
 
-        var mensagensDeErro = resultado.Errors.Select(error => error.ErrorMessage).ToList();
+        if (existeTarefa == null)
+            resultado.Errors.Add(new FluentValidation.Results.ValidationFailure("tarefaInexistente", "Tarefa solicitada não existe"));
+
+        var mensagensDeErro = resultado.Errors.Select(error =>
+        {
+            return new ErroValidacaoJson
+            {
+                ErroNome = error.PropertyName,
+                Mensagem = error.ErrorMessage
+            };
+        }).ToList();
+
         if (!resultado.IsValid)
-            throw new ErroTarefaException(mensagensDeErro);
+            throw new ErroGenericoException(mensagensDeErro);
 
         return _mapper.Map<RespostaTarefaJson>(existeTarefa);
     }

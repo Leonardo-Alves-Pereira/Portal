@@ -19,6 +19,10 @@
     </Compile>
   </ItemGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\..\Shared\Portal.Comunicacao\Portal.Comunicacao.csproj" />
+	</ItemGroup>
+
   <ItemGroup>
     <EmbeddedResource Update="Resources\ResourceErrorMessage.resx">
       <LastGenOutput>ResourceErrorMessage.Designer.cs</LastGenOutput>

@@ -5,5 +5,5 @@ namespace Portal.Application.UseCases.Tarefa.Deletar;
 
 public interface IDeletarTarefaUseCase
 {
-    Task<RespostaTarefaJson> Executar(GenericRequestIdJson id);
+    Task<RespostaTarefaJson> Executar(RequisicaoTarefaJson id);
 }

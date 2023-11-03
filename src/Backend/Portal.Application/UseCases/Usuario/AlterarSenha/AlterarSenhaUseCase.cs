@@ -2,6 +2,7 @@
 using Portal.Application.Servicos.Criptografia;
 using Portal.Application.Servicos.UsuarioLogado;
 using Portal.Comunicacao.Requisicao;
+using Portal.Comunicacao.Resposta;
 using Portal.Domain.Repositorio;
 using Portal.Domain.Repositorio.Usuario;
 using Portal.Exceptions.ExceptionBase;
@@ -49,9 +50,17 @@ public class AlterarSenhaUseCase : IAlterarSenhaUseCase
         if (!usuario.Senha.Equals(senhaCriptografada))
             resultado.Errors.Add(new FluentValidation.Results.ValidationFailure("senhaAtual", ResourceErrorMessage.SENHA_ATUAL_INVALIDA));
 
-        var mensagens = resultado.Errors.Select(x => x.ErrorMessage).ToList();
+        var mensagensDeErro = resultado.Errors.Select(error =>
+        {
+            return new ErroValidacaoJson
+            {
+                ErroNome = error.PropertyName,
+                Mensagem = error.ErrorMessage
+            };
+        }).ToList();
+
         if (!resultado.IsValid)
-            throw new ErroDeValidacaoException(mensagens);
+            throw new ErroGenericoException(mensagensDeErro);
     }
 
 }

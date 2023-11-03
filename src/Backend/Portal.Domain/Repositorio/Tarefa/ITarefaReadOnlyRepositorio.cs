@@ -1,4 +1,7 @@
-﻿namespace Portal.Domain.Repositorio.Tarefa;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace Portal.Domain.Repositorio.Tarefa;
 
 public interface ITarefaReadOnlyRepositorio
 {
