@@ -57,8 +57,9 @@ export class TarefaDetalheComponent implements OnInit {
       titulo: ['', Validators.required],
       dataCriacao: ['', Validators.required],
       dataConclusao: ['', Validators.required],
+      usuarioId: [this.id, Validators.required],
       usuario: this.fb.group({
-        nome: [''] 
+        nome: [''],
       }),
       descricao: ['', Validators.required],
     });
@@ -84,7 +85,6 @@ export class TarefaDetalheComponent implements OnInit {
 
   public taskTarefa(metodoNome: string, id: string): void {
     this.tarefa = { 'id': id, ...this.form.value };
-    this.tarefa.usuarioId = 1;
     (this.tarefaService as any)[metodoNome](this.tarefa).subscribe();
   }
 
@@ -96,7 +96,6 @@ export class TarefaDetalheComponent implements OnInit {
         (tarefa: Tarefa) => {
           this.tarefa = { ...tarefa }
           this.form.patchValue(this.tarefa);
-
         },
         (error: any) => {
           this.showSpinner();
