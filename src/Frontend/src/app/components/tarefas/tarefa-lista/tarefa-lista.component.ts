@@ -15,14 +15,13 @@ export class TarefaListaComponent implements OnInit {
   modalRef?: BsModalRef;
   message = '';
   tarefa!: Tarefa;
-  public tarefasFiltradas: Tarefa[] = [];
-  public tarefas: Tarefa[] = [];
+  tarefasFiltradas: Tarefa[] = [];
+  tarefas: Tarefa[] = [];
   id: number = 0;
   private _filtroLista = '';
 
   constructor(private tarefaService: TarefaService,
     private modalService: BsModalService,
-    private toastr: ToastrService,
     private router: Router,
     private spinner: NgxSpinnerService) { }
 
@@ -44,15 +43,7 @@ export class TarefaListaComponent implements OnInit {
       next: (tarefas: Tarefa[]) => {
         this.tarefas = tarefas;
         this.tarefasFiltradas = this.tarefas;
-        this.spinner.show();
-      },
-      error: (error: any) => {
-        this.toastr.error(error.error.mensagens, 'Erro', {
-          timeOut: 10000
-        });
-        this.showSpinner();
-      },
-      complete: () => this.spinner.hide()
+      }
     });
   }
 
@@ -60,16 +51,7 @@ export class TarefaListaComponent implements OnInit {
 
     if (id !== 0) {
       this.tarefaService.deletarTarefa(id).subscribe(
-       () => {
-        this.listarTarefas();
-       },
-       (error: any) => {
-        this.toastr.error('Erro na conexão!', 'Erro', {
-          timeOut: 10000
-        });
-        this.showSpinner();
-       },
-        () => this.spinner.hide()  
+       () => this.listarTarefas()
       );
     }
   }
@@ -91,7 +73,6 @@ export class TarefaListaComponent implements OnInit {
   confirm(): void {
     this.deletarTarefa(this.id);
     this.modalRef?.hide();
-    this.toastr.success('Tarefa excluída com sucesso!', 'Exclusão');
   }
 
   decline(): void {

@@ -8,14 +8,11 @@ import { LoginService } from './service/login.service';
 })
 export class AppComponent {
   title = 'Frontend';
-  constructor(private loginService: LoginService) { }
+  constructor(public loginService: LoginService) { }
 
-  public login(){
-    let user = this.loginService.currentUser();
-    this.loginService.setUsuario(user);
-  }
+
 
   ngOnInit() {
-    this.login();
+
   }
 }

@@ -11,38 +11,21 @@ import { LoginService } from 'src/app/service/login.service';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
-    
-  user!: Usuario;
 
   constructor(private renderer: Renderer2,
-      private el: ElementRef, 
-      private router: Router,
-      public loginSevice: LoginService,
-      private toastr: ToastrService,
-      private spinner: NgxSpinnerService) {       }
-
+    private el: ElementRef,
+    private router: Router,
+    public loginService: LoginService) { }
 
   ngOnInit() {
     this.expandirMenu();
     this.esconderMenu();
     this.userMenu();
     this.esconderUserMenu();
-
-
-    this.loginSevice.currentUser$.subscribe((user: Usuario) => {
-      this.user = user;
-    });
   }
-
-
-
-    public logout() { 
-      this.toastr.success('Logout efetuado com sucesso!', 'Logout');
-      this.loginSevice.logout();
-      this.router.navigateByUrl('/user/login');
-    }
-
-
+  public logout() {
+    this.loginService.logout();
+  }
 
   public userMenu() {
     // Seleciona o botão de toggling do offcanvas pelo seu ID e adiciona um ouvinte de evento de clique
@@ -73,12 +56,11 @@ export class NavComponent implements OnInit {
       this.renderer.removeClass(offcanvas, 'show');
     });
   }
-  
 
   public expandirMenu() {
     // Seleciona o botão de toggling do offcanvas pelo seu ID e adiciona um ouvinte de evento de clique
     const togglerButton = document.getElementById('togglerButton');
-    togglerButton?.addEventListener('click', () => { 
+    togglerButton?.addEventListener('click', () => {
     });
   }
 
@@ -97,26 +79,25 @@ export class NavComponent implements OnInit {
     });
   }
 
-
   navMenuShow(event: Event) {
     // Acesse o elemento que foi clicado usando event.target
     const elementoClicado = event.target as HTMLElement;
 
-    if(elementoClicado.id == "togglerButton"){
+    if (elementoClicado.id == "togglerButton") {
       const offcanvas = document.getElementById('offcanvasDarkNavbar');
       this.renderer.removeClass(offcanvas, 'hiding');
       this.renderer.addClass(offcanvas, 'show');
       offcanvas?.focus();
-    }else if (elementoClicado.id == "togglerUser"){
+    } else if (elementoClicado.id == "togglerUser") {
       const offcanvas = document.getElementById('offcanvasDarkNavbarEnd');
       this.renderer.removeClass(offcanvas, 'hiding');
       this.renderer.addClass(offcanvas, 'show');
       offcanvas?.focus();
-    }else if (elementoClicado.id == "btnClose"){
+    } else if (elementoClicado.id == "btnClose") {
       const offcanvas = document.getElementById('offcanvasDarkNavbar');
       this.renderer.addClass(offcanvas, 'hiding');
       this.renderer.removeClass(offcanvas, 'show');
-    } else if (elementoClicado.id == "btnUserClose"){
+    } else if (elementoClicado.id == "btnUserClose") {
       const offcanvas = document.getElementById('offcanvasDarkNavbarEnd');
       this.renderer.addClass(offcanvas, 'hiding');
       this.renderer.removeClass(offcanvas, 'show');
@@ -124,7 +105,7 @@ export class NavComponent implements OnInit {
 
   }
 
-  public esconderNav(){
+  public esconderNav() {
     return this.router.url === '/user/login' || this.router.url === '/user/registrar';
   }
 

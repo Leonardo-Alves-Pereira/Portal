@@ -22,9 +22,7 @@ export class TarefaDetalheComponent implements OnInit {
 
   showSpinner() {
     this.spinner.show();
-    setTimeout(() => {
-      this.spinner.hide();
-    }, 5000);
+    setTimeout(() => { this.spinner.hide(); }, 5000);
   }
 
   get bsConfig(): any {
@@ -87,19 +85,7 @@ export class TarefaDetalheComponent implements OnInit {
   public taskTarefa(metodoNome: string, id: string): void {
     this.tarefa = { 'id': id, ...this.form.value };
     this.tarefa.usuarioId = 1;
-    (this.tarefaService as any)[metodoNome](this.tarefa).subscribe({
-      next: (tarefa: Tarefa) => { },
-      error: (error: any) => {
-        this.toastr.error('Erro na conexão!', 'Erro', { timeOut: 10000 });
-        this.showSpinner();
-        this.rota.navigate([`/tarefas`]);
-      },
-      complete: () => {
-        this.spinner.hide()
-        this.rota.navigate([`/tarefas`]);
-        this.toastr.success('Operação realizada com sucesso!', 'Sucesso');
-      }
-    });
+    (this.tarefaService as any)[metodoNome](this.tarefa).subscribe();
   }
 
   public carregarTarefa(): void {

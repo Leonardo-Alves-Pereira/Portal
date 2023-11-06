@@ -2,7 +2,7 @@
   <div class="container-fluid" *ngIf="!esconderNav()">
     <div class="d-flex align-items-center">
       <button
-      (click)="navMenuShow($event)"
+        (click)="navMenuShow($event)"
         style="margin-left: 2vw"
         class="navbar-toggler"
         type="button"
@@ -22,7 +22,12 @@
       </a>
     </div>
 
-    <ul class="navbar-nav"(click)="navMenuShow($event)" id="togglerUser" *ngIf="user.nome">
+    <ul
+      class="navbar-nav"
+      (click)="navMenuShow($event)"
+      id="togglerUser"
+      *ngIf="loginService.currentUser() as user"
+    >
       <button
         style="margin-right: 2vw"
         id="togglerUser"
@@ -34,7 +39,7 @@
         aria-label="Toggle navigation"
       >
         <span class="fa fa-user" id="togglerUser"></span>
-        {{user.nome.split(' ')[0]}}
+        {{ user.nome.split(" ")[0] }}
       </button>
     </ul>
 
@@ -43,10 +48,12 @@
       id="offcanvasDarkNavbar"
       tabindex="-1"
       aria-labelledby="offcanvasDarkNavbarLabel"
-      style="max-height: 100%; max-width: 250px !important;"
+      style="max-height: 100%; max-width: 250px !important"
     >
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel"><i class="fa-brands fa-mendeley"></i><b class="mx-2">Menu</b></h5>
+        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
+          <i class="fa-brands fa-mendeley"></i><b class="mx-2">Menu</b>
+        </h5>
         <button
           (click)="navMenuShow($event)"
           type="button"
@@ -58,26 +65,30 @@
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          <li class="nav-item"  routerLinkActive="active">
-            <a class="nav-link" routerLink="tarefas"><i class="fa-solid fa-calendar-days"></i><b class="mx-2">Tarefas</b></a>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="tarefas"
+              ><i class="fa-solid fa-calendar-days"></i
+              ><b class="mx-2">Tarefas</b></a
+            >
           </li>
         </ul>
       </div>
     </div>
 
     <div
-      *ngIf="user.nome"
+      *ngIf="loginService.currentUser() as user"
       class="offcanvas offcanvas-end text-bg-dark"
       id="offcanvasDarkNavbarEnd"
       tabindex="-1"
       aria-labelledby="offcanvasDarkNavbarLabel"
-      style="max-height: 175px; max-width: 250px;">
+      style="max-height: 175px; max-width: 250px"
+    >
       <div class="offcanvas-header">
         <h6 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
-          {{user.nome}}
+          {{ user.nome }}
         </h6>
         <button
-        (click)="navMenuShow($event)"
+          (click)="navMenuShow($event)"
           type="button"
           id="btnUserClose"
           class="btn-close btn-close-white"
@@ -87,11 +98,15 @@
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          <li class="nav-item"  routerLinkActive="active">
-            <a class="nav-link" aria-current="page" routerLink="user/registrar"><i class="fa fa-user-circle"></i><b class="mx-2">Perfil</b></a>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" aria-current="page" routerLink="user/registrar"
+              ><i class="fa fa-user-circle"></i><b class="mx-2">Perfil</b></a
+            >
           </li>
-          <li class="nav-item" routerLinkActive="active" >
-            <a class="nav-link" (click)="logout()" style="cursor: pointer;"><i class="fa-solid fa-power-off"></i><b class="mx-2">Sair</b></a>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" (click)="logout()" style="cursor: pointer"
+              ><i class="fa-solid fa-power-off"></i><b class="mx-2">Sair</b></a
+            >
           </li>
         </ul>
       </div>

@@ -3,16 +3,18 @@ import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject, map, take } from 'rxjs';
 import { Usuario } from '../model/Usuario';
 import { Constants as AppConstants } from '../util/constants';
+import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  private currentUserSource = new ReplaySubject<Usuario>(1);
-currentUser$ = this.currentUserSource.asObservable();
-
   baseUrl = AppConstants.API_LOGIN;
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient,
+    private router: Router) { }
 
   public login(model: any): Observable<void> {
     const URL = `${this.baseUrl}/login`;
@@ -28,32 +30,24 @@ currentUser$ = this.currentUserSource.asObservable();
 
   isLogado(): boolean {
     const usuario = localStorage.getItem('usuario');
-    if (usuario === null || usuario === undefined) {
-      return false;
-    }
+    if (usuario === null || usuario === undefined) { return false; }
     return true;
   }
 
-  logout() {  
+  logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
-    this.currentUserSource.next(null!);
-    this.currentUserSource.complete();
+    this.router.navigateByUrl('/user/login');
   }
 
   public setUsuario(usuario: Usuario | null): void {
-    if (usuario) 
+    if (usuario)
       localStorage.setItem('usuario', JSON.stringify(usuario));
-
-    this.currentUserSource.next(usuario!);
-    this.currentUserSource.complete();
   }
 
   currentUser(): Usuario | null {
     const usuario = localStorage.getItem('usuario');
-    if (usuario) {
-      return JSON.parse(usuario);
-    }
+    if (usuario) { return JSON.parse(usuario); }
     return null;
   }
 }

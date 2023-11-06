@@ -2,11 +2,11 @@
 
 public class RespostaErroJson
 {
-    public List<string> Mensagens { get; set; }
+    public List<string> Mensagem { get; set; }
 
     public RespostaErroJson(string mensagem)
     {
-        Mensagens = new List<string>
+        Mensagem = new List<string>
         {
             mensagem
         };
@@ -14,6 +14,6 @@ public class RespostaErroJson
 
     public RespostaErroJson(List<string> mensagens)
     {
-        Mensagens = mensagens;
+        Mensagem = mensagens;
     }
 }

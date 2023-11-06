@@ -1,6 +1,13 @@
 <div class="d-flex align-items-center vh-100">
-  <div class="mx-auto text-center shadow-sm bg-dark rounded p-5 my-5" style="height: 400px; width: 800px !important; margin-bottom: 170px !important;">
-    <div class="row mt-4">
+  <div
+    class="mx-auto text-center shadow-sm bg-dark rounded p-5 my-5"
+    style="
+      height: 400px;
+      width: 800px !important;
+      margin-bottom: 170px !important;
+    "
+  >
+    <div class="row mt-2">
       <div class="col-md-6 d-none d-md-block" style="height: 450px">
         <div class="text-center col-md-12 my-auto side-heder">
           <h6>Cadastro de Usuário</h6>
@@ -13,17 +20,21 @@
         </div>
       </div>
 
-      <div class="col-md-6" style="height: 400px !important;">
-        <form class="p-1">
+      <div class="col-md-6 " style="height: 400px !important">
+        <form class="align-items-end" [formGroup]="form">
           <div class="pb-2 d-block d-md-none">
-            <h6 class="border-bottom" style="font-size: 10px !important;">Cadastro de Usuário</h6>
+            <h6 class="border-bottom" style="font-size: 10px !important">
+              Cadastro de Usuário
+            </h6>
           </div>
           <div class="form-row">
             <div class="form-group col-sm-6">
               <div class="did-floating-label-content">
                 <input
-                  placeholder=""
+                  formControlName="nome"
                   autocomplete="off"
+                  [ngClass]="cssValidator(f.nome)"
+                  placeholder=""
                   type="text"
                   class="did-floating-input bg-dark form-control"
                   id="nome"
@@ -31,14 +42,22 @@
                   required
                 />
                 <label class="did-floating-label bg-dark">Nome completo</label>
+                <div
+                  class="invalid-feedback"
+                  style="margin: -2px 0 0 -20px !important"
+                >
+                  Campo obrigatorio
+                </div>
               </div>
             </div>
           </div>
           <div class="form-group col-sm-6">
             <div class="did-floating-label-content">
               <input
-                placeholder=""
+                formControlName="email"
                 autocomplete="off"
+                [ngClass]="cssValidator(f.email)"
+                placeholder=""
                 type="text"
                 class="did-floating-input bg-dark form-control"
                 id="email"
@@ -46,44 +65,96 @@
                 required
               />
               <label class="did-floating-label bg-dark">Email</label>
+              <div
+                class="invalid-feedback"
+                style="margin: -2px 0 0 -20px !important"
+              >
+                Campo obrigatorio
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <div class="did-floating-label-content">
+              <input
+                formControlName="telefone"
+                autocomplete="off"
+                [ngClass]="cssValidator(f.telefone)"
+                placeholder=""
+                type="text"
+                class="did-floating-input bg-dark form-control"
+                id="telefone"
+                name="telefone"
+                required
+              />
+              <label class="did-floating-label bg-dark">Telefone</label>
+              <div
+                class="invalid-feedback"
+                style="margin: -2px 0 0 -20px !important"
+              >
+                Campo obrigatorio
+              </div>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-sm-6">
               <div class="did-floating-label-content">
                 <input
-                  placeholder=""
+                  formControlName="senha"
                   autocomplete="off"
+                  [ngClass]="cssValidator(f.senha)"
+                  placeholder=""
                   type="password"
                   class="did-floating-input bg-dark form-control"
-                  id="password"
-                  name="password"
+                  id="senha"
+                  name="senha"
                   required
                 />
                 <label class="did-floating-label bg-dark">Senha</label>
+                <div
+                  class="invalid-feedback"
+                  style="margin: -2px 0 0 -20px !important"
+                >
+                  Campo obrigatorio
+                </div>
               </div>
             </div>
             <div class="form-group col-sm-6">
               <div class="did-floating-label-content">
                 <input
-                  placeholder=""
+                  formControlName="confirmPassword"
                   autocomplete="off"
+                  [ngClass]="cssValidator(f.confirmPassword)"
+                  placeholder=""
                   type="password"
                   class="did-floating-input bg-dark form-control"
-                  id="password"
+                  id="confirmPassword"
                   name="password"
                   required
                 />
                 <label class="did-floating-label bg-dark"
                   >Confirmar Senha</label
                 >
+                <div
+                  class="invalid-feedback"
+                  style="margin: -2px 0 0 -20px !important"
+                >
+                  Campo obrigatorio
+                </div>
               </div>
             </div>
           </div>
           <div class="form-row">
-            <div class="form-group col-12">
-              <button class="btn btn-lg btn-success btn-block px-5">
-                Registar
+            <div class="form-group col-8" style="margin-left: -27px;">
+              <button
+                class="btn btn-lg btn-success btn-block"
+                [disabled]="!this.form.valid"
+                (click)="registrarUsuario()"
+              >
+              <span
+              *ngIf="!this.form.valid"
+              class="spinner-border spinner-border-sm mr-1"
+            ></span>
+            Salvar Evento
               </button>
             </div>
           </div>

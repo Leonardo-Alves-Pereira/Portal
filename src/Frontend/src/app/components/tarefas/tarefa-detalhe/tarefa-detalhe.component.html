@@ -7,9 +7,9 @@
       <input
         formControlName="titulo"
         autocomplete="off"
+        [ngClass]="cssValidator(f.titulo)"
         type="text"
         class="did-floating-input bg-dark form-control"
-        [ngClass]="cssValidator(f.titulo)"
       />
       <label class="did-floating-label bg-dark">Título</label>
       <div class="invalid-feedback">
@@ -26,12 +26,10 @@
         formControlName="dataCriacao"
         [ngClass]="cssValidator(f.dataCriacao)"
         bsDatepicker
-        [bsConfig]= "bsConfig"
+        [bsConfig]="bsConfig"
         onkeydown="return false"
         onclick="return false"
-        value="{{ form.value.dataCriacao | FormatoData}}"
-
-
+        value="{{ form.value.dataCriacao | FormatoData }}"
       />
       <label class="did-floating-label bg-dark">Data de Criação</label>
       <div class="invalid-feedback">
@@ -44,15 +42,15 @@
     <div class="did-floating-label-content">
       <input
         class="did-floating-input bg-dark coloPicker form-control"
-        style="color: white;"
+        style="color: white"
         type="text"
         formControlName="dataConclusao"
         [ngClass]="cssValidator(f.dataConclusao)"
         bsDatepicker
-        [bsConfig]= "bsConfig"
+        [bsConfig]="bsConfig"
         onkeydown="return false"
         onclick="return false"
-        value="{{ form.value.dataConclusao | FormatoData}}"
+        value="{{ form.value.dataConclusao | FormatoData }}"
       />
       <label class="did-floating-label bg-dark">Data de Conclusão</label>
       <div class="invalid-feedback">
@@ -62,9 +60,13 @@
   </div>
 
   <div class="col-md-4 mt-1">
-    <div class="did-floating-label-content" formGroupName="usuario" *ngIf="loginService.currentUser()  as dados">
+    <div
+      class="did-floating-label-content"
+      formGroupName="usuario"
+      *ngIf="loginService.currentUser() as dados"
+    >
       <input
-      ngModel="{{dados.nome}}"
+        ngModel="{{ dados.nome }}"
         formControlName="nome"
         autocomplete="off"
         type="text"
@@ -77,7 +79,7 @@
       </div>
     </div>
   </div>
-<hr>
+  <hr />
   <div class="col-md-4 mt-1">
     <div class="did-floating-label-content">
       <textarea
@@ -95,13 +97,19 @@
   </div>
 
   <div class="col-12 d-flex justify-content-end mt-1">
-    <button class="btn btn-success mx-2"
-    [disabled]="!this.form.valid"
-    (click)="validarTarefa()">
-      <span *ngIf="!this.form.valid" class="spinner-border spinner-border-sm mr-1"></span>
+    <button
+      class="btn btn-success mx-2"
+      [disabled]="!this.form.valid"
+      (click)="validarTarefa()"
+    >
+      <span
+        *ngIf="!this.form.valid"
+        class="spinner-border spinner-border-sm mr-1"
+      ></span>
       Salvar Evento
     </button>
-    <button class="btn btn-outline-secondary border"
-    routerLink="tarefas">Cancelar Alteração</button>
+    <button class="btn btn-outline-secondary border" routerLink="tarefas">
+      Cancelar Alteração
+    </button>
   </div>
 </form>

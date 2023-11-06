@@ -117,7 +117,7 @@
   </data>
 	<data name="TOKEN_EXPIRADO" xml:space="preserve">
     <value>Sessão expirada, entre novamente.</value>
-  </data>
+  </data>x
 	<data name="USUARIO_EXISTE" xml:space="preserve">
     <value>Nome de usuario já existe em nosso sistema.</value>
   </data>

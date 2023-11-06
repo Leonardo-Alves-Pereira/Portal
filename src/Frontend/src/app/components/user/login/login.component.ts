@@ -29,14 +29,6 @@ export class LoginComponent {
       next: () => {
         this.router.navigateByUrl('/user');
       },
-      error: (error) => { 
-        if (error.status == 401) {
-          this.toastr.error(error.error.mensagens, 'Erro', {
-            timeOut: 10000
-          });
-        }
-         },
-      complete: () => { }
     });
   }
 }
