@@ -75,6 +75,7 @@ defineLocale('pt-br', ptBrLocale);
   providers: [
     TarefaService,
     LoginService,
+    FormatoDataPipe,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor , multi: true},
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor , multi: true}
 

@@ -28,7 +28,7 @@ export class NavComponent implements OnInit {
   }
 
   public userMenu() {
-    // Seleciona o botão de toggling do offcanvas pelo seu ID e adiciona um ouvinte de evento de clique
+    // Seleciona o botão de toggling do offcanvas pelo seu ID e adiciona um ouvinte de tarefa de clique
     const togglerButton = document.getElementById('togglerUser');
     togglerButton?.addEventListener('click', () => {
       // Seleciona o offcanvas pelo seu ID
@@ -44,7 +44,7 @@ export class NavComponent implements OnInit {
   }
 
   public esconderUserMenu() {
-    // Adiciona um ouvinte de evento para fechar o offcanvas quando o usuário clicar no botão de fechar
+    // Adiciona um ouvinte de tarefa para fechar o offcanvas quando o usuário clicar no botão de fechar
     const closeButton = document.getElementById('togglerCloseUser');
     closeButton?.addEventListener('click', () => {
       // Seleciona o offcanvas pelo seu ID
@@ -58,14 +58,14 @@ export class NavComponent implements OnInit {
   }
 
   public expandirMenu() {
-    // Seleciona o botão de toggling do offcanvas pelo seu ID e adiciona um ouvinte de evento de clique
+    // Seleciona o botão de toggling do offcanvas pelo seu ID e adiciona um ouvinte de tarefa de clique
     const togglerButton = document.getElementById('togglerButton');
     togglerButton?.addEventListener('click', () => {
     });
   }
 
   public esconderMenu() {
-    // Adiciona um ouvinte de evento para fechar o offcanvas quando o usuário clicar no botão de fechar
+    // Adiciona um ouvinte de tarefa para fechar o offcanvas quando o usuário clicar no botão de fechar
     const closeButton = document.querySelector('.btn-close');
     closeButton?.addEventListener('click', () => {
       // Seleciona o offcanvas pelo seu ID

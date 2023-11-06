@@ -7,7 +7,7 @@ import { Constants as AppConstants } from '../util/constants';
 })
 export class FormatoDataPipe extends DatePipe implements AngularPipeTransform {
 
-  override transform(value: any, args?: any): any {
+  override transform(value?: any, args?: any): any {
     return super.transform(value, AppConstants.DATE_FMT);
   }
 
