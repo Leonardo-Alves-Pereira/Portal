@@ -17,12 +17,17 @@ export class JwtInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let currentUser!: Usuario;
+    let currentLanguage!: any;
+
     if (currentUser === undefined) {
       currentUser = JSON.parse(localStorage.getItem('usuario') || '{}');
+      currentLanguage = JSON.parse(localStorage.getItem('language') || '{}');
+
 
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${currentUser.token}`
+          Authorization: `Bearer ${currentUser.token}`,
+          'Accept-Language': currentLanguage
         }
       });
     }

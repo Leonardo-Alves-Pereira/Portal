@@ -17,13 +17,16 @@ export class LoginService {
     private router: Router) { }
 
   public login(model: any): Observable<void> {
+    localStorage.setItem('language', JSON.stringify(model.acceptlanguage));
     const URL = `${this.baseUrl}/login`;
     return this.http.post<Usuario>(`${this.baseUrl}`, model).pipe(
       take(1),
       map((response: Usuario) => {
         const usuario = response;
-        if (usuario)
+        if (usuario){
           this.setUsuario(usuario);
+          console.log(usuario);
+        }
       })
     );
   }

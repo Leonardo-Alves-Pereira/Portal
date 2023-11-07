@@ -16,7 +16,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class LoginComponent {
 
-  model = {} as UserLogin;
+  model = {
+    acceptlanguage: JSON.parse(localStorage.getItem('language') || '"pt-br"'),
+  } as UserLogin;
 
   constructor(private http: HttpClient, private loginService: LoginService,
     private modalService: BsModalService,
@@ -24,11 +26,15 @@ export class LoginComponent {
     private router: Router,
     private spinner: NgxSpinnerService) { }
 
-  login() {
-    this.loginService.login(this.model).subscribe({
-      next: () => {
-        this.router.navigateByUrl('/user');
-      },
-    });
-  }
+    ngOnInit() { 
+      console.log(JSON.parse(localStorage.getItem('language') || '"pt-br"'));
+    }
+
+    login() {
+      this.loginService.login(this.model).subscribe({
+        next: () => {
+          this.router.navigateByUrl('/user');
+        },
+      });
+    }
 }
